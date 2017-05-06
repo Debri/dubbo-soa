@@ -12,6 +12,7 @@
         <module>debri-data-api</module>
         <module>debri-data-provider</module>
         <module>debri-data-consumer</module>
+        <module>debri-openAPI</module>
     </modules>
     <properties>
         <spring-version>4.2.8.RELEASE</spring-version>

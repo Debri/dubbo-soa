@@ -5,13 +5,14 @@
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 
-    <bean class="com.geek.consumer.TestConsumer" init-method="start">
+    <bean class="com.geek.consumer.TestConsumer" init-method="start" scope="singleton">
         <property name="testService" ref="testService"/>
     </bean>
-    <dubbo:reference interface="com.geek.api.TestService" id="testService"/>
-
+    <!--consumer的引用的服务-->
+    <dubbo:reference interface="com.geek.api.TestService" id="testService" />
+    <!--当前application的名字-->
     <dubbo:application name="debri-data-consumer"/>
-
+    <!--注册zookeeper服务的地址-->
     <dubbo:registry protocol="zookeeper" address="192.168.191.1:2181"/>
     <dubbo:protocol name="dubbo" port="20880"/>
 

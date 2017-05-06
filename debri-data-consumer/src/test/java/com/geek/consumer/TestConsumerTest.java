@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Created by Liuqi
  * Date: 2017/5/6.
  */
+
 public class TestConsumerTest {
     public static void main(String[] args) throws InterruptedException {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
@@ -15,8 +16,9 @@ public class TestConsumerTest {
         applicationContext.start();
         System.out.println("--------consumer started");
         TestService testService = (TestService) applicationContext.getBean("testService");
+        int i = 0;
         while (true) {
-            String str = testService.sayHello("liuqi");
+            String str = testService.sayHello("liuqi" + i++);
             System.out.println(str);
             Thread.sleep(2000);
         }

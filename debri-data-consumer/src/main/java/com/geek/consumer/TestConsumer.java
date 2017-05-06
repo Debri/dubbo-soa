@@ -6,7 +6,9 @@ import com.geek.api.TestService;
  * Created by Liuqi
  * Date: 2017/5/6.
  */
+
 public class TestConsumer {
+    //在XML中配置注入
     private TestService testService;
 
     public void setTestService(TestService testService) {
