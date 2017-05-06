@@ -38,7 +38,6 @@
         <dependency>
             <groupId>com.101tec</groupId>
             <artifactId>zkclient</artifactId>
-
         </dependency>
     </dependencies>
     <build>

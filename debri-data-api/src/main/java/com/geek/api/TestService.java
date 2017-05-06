@@ -5,5 +5,5 @@ package com.geek.api;
  * Date: 2017/5/5.
  */
 public interface TestService {
-    public void sayHello(String str);
+    public String sayHello(String str);
 }

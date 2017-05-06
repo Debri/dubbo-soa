@@ -7,7 +7,8 @@ import com.geek.api.TestService;
  * Date: 2017/5/5.
  */
 public class TestServiceImpl implements TestService {
-    public void sayHello(String str) {
+    public String sayHello(String str) {
         System.out.println("hello " + str);
+        return "hello" + str;
     }
 }
