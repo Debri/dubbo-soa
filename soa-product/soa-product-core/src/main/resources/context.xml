@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.soa.product.*"/>
+    <context:property-placeholder location="classpath*:jdbc.properties"/>
+
+    <import resource="classpath*:dubbo.xml"/>
+
+    <jpa:repositories base-package="com.soa.product.persistence" query-lookup-strategy="create-if-not-found"
+                      transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory">
+        <!-- <include-filter type="regex" expression="persistence.*Repository"/>-->
+    </jpa:repositories>
+    <!--dataSource and connectionPool-->
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="url" value="${jdbc.mysql.soa.url}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="username" value="${jdbc.mysql.username}"/>
+        <property name="password" value="${jdbc.mysql.password}"/>
+        <property name="maxIdle" value="${jdbc.maxIdle}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <!--        <property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
+        <property name="validationQuery" value="${jdbc.validationQuery}" />-->
+    </bean>
+    <!--use jpa-->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--<property name="packagesToScan" value="com.soa"/>-->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <!--transaction-->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="daoPointCut" expression="execution(* com.geek.*.persistence.*.*(..))"/>
+        <aop:advisor advice-ref="transactionAdvice" pointcut-ref="daoPointCut"/>
+    </aop:config>
+</beans>
