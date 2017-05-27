@@ -1,4 +1,4 @@
-package com.soa.product.domain;
+package com.soa.order.domain;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -9,40 +9,47 @@ import java.util.Date;
 
 /**
  * Created by Liuqi
- * Date: 2017/5/25.
+ * Date: 2017/5/23.
  */
-@Entity(name = "Product")
-@Table(name = "product")
-public class Product implements Serializable {
+@Entity(name = "order")
+@Table(name = "order")
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
-    private Integer status;
+    @Column(name = "product_id")
+    private Long productId;
     private Integer price;
-    private String detail;
+    @Column(name = "user_id")
+    private Long userId;
+    @Column(name = "trade_id")
+    private Long tradeId;
+    @Column(name = "trade_status")
+    private Integer tradeStatus;
     private Integer deleted;
-    @Column(name = "create_time")
     @CreatedDate
+    @Column(name = "create_time")
     private Date createTime;
-    @Column(name = "update_time")
     @LastModifiedDate
+    @Column(name = "update_time")
     private Date updateTime;
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Order{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", status=" + status +
+                ", productId=" + productId +
                 ", price=" + price +
-                ", detail='" + detail + '\'' +
+                ", userId=" + userId +
+                ", tradeId=" + tradeId +
+                ", tradeStatus=" + tradeStatus +
                 ", deleted=" + deleted +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
     }
 
+    //*getters and setters*/
     public Long getId() {
         return id;
     }
@@ -51,20 +58,12 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Integer getPrice() {
@@ -75,12 +74,28 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public String getDetail() {
-        return detail;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getTradeId() {
+        return tradeId;
+    }
+
+    public void setTradeId(Long tradeId) {
+        this.tradeId = tradeId;
+    }
+
+    public Integer getTradeStatus() {
+        return tradeStatus;
+    }
+
+    public void setTradeStatus(Integer tradeStatus) {
+        this.tradeStatus = tradeStatus;
     }
 
     public Integer getDeleted() {

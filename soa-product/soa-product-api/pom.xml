@@ -12,11 +12,14 @@
     <artifactId>soa-product-api</artifactId>
     <description>product 定义的对外提供的服务API接口</description>
     <dependencies>
-   <!--     <dependency>
-            <groupId>geek.com</groupId>
-            <artifactId>soa-product-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>-->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -23,12 +23,13 @@ public class ProductRepositoryTest {
     public void TestProductCRUD() {
 
         Product product = new Product();
-        product.setId(3L);
+        product.setId(5L);
         product.setStatus(1);
         product.setName("product111");
         product.setPrice(123);
         product.setCreateTime(new Date());
+        product.setDeleted(1);
+        System.out.println(product);
         System.out.println(productRepository.save(product));
     }
-
 }

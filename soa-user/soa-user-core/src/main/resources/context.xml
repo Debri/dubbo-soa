@@ -11,12 +11,12 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <context:annotation-config/>
-    <context:component-scan base-package="com.soa"/>
+    <context:component-scan base-package="com.soa.user.*"/>
     <context:property-placeholder location="classpath*:jdbc.properties"/>
-
+    <!--引入Dubbo的配置-->
     <import resource="classpath*:dubbo.xml"/>
-
-    <jpa:repositories base-package="com.soa.*" query-lookup-strategy="create-if-not-found"
+    <!--persistence 的包名-->
+    <jpa:repositories base-package="com.soa.user.persistence" query-lookup-strategy="create-if-not-found"
                       transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory">
         <!-- <include-filter type="regex" expression="persistence.*Repository"/>-->
     </jpa:repositories>
@@ -35,7 +35,8 @@
     <!--use jpa-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!--<property name="packagesToScan" value="com.soa"/>-->
+        <!--domain 的包名-->
+        <property name="packagesToScan" value="com.soa.user.domain"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true"/>
