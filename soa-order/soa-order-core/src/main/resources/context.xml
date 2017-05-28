@@ -14,7 +14,7 @@
     <context:component-scan base-package="com.soa.order.*"/>
     <context:property-placeholder location="classpath*:jdbc.properties"/>
     <!--引入Dubbo的配置-->
-    <import resource="classpath*:dubbo.xml"/>
+    <!--<import resource="classpath*:dubbo.xml"/>-->
     <!--persistence 的包名-->
     <jpa:repositories base-package="com.soa.order.persistence" query-lookup-strategy="create-if-not-found"
                       transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory">
@@ -41,6 +41,8 @@
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true"/>
                 <property name="showSql" value="true"/>
+                <!--指定数据库方言的平台，此处设定为MySQL 5.7-->
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL57Dialect"/>
             </bean>
         </property>
     </bean>

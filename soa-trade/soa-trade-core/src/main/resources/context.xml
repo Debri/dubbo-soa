@@ -10,13 +10,15 @@
 	http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
     <context:annotation-config/>
-    <context:component-scan base-package="com.soa.user.*"/>
+    <!--<context:component-scan base-package="com.soa.order.*"/>-->
+    <context:component-scan base-package="com.soa.trade.*"/>
     <context:property-placeholder location="classpath*:jdbc.properties"/>
     <!--引入Dubbo的配置-->
-    <import resource="classpath*:dubbo.xml"/>
+    <!--<import resource="classpath*:dubbo.xml"/>-->
     <!--persistence 的包名-->
-    <jpa:repositories base-package="com.soa.user.persistence" query-lookup-strategy="create-if-not-found"
+    <jpa:repositories base-package="com.soa.trade.persistence" query-lookup-strategy="create-if-not-found"
                       transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory">
         <!-- <include-filter type="regex" expression="persistence.*Repository"/>-->
     </jpa:repositories>
@@ -32,16 +34,16 @@
         <!--        <property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
         <property name="validationQuery" value="${jdbc.validationQuery}" />-->
     </bean>
-    <!--use spring jpa-->
+    <!--use jpa-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!--domain 的包名-->
-        <property name="packagesToScan" value="com.soa.user.domain"/>
+        <property name="packagesToScan" value="com.soa.trade.domain"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true"/>
                 <property name="showSql" value="true"/>
-                <!--设置数据库平台方言-->
+                <!--指定数据库方言的平台，此处设定为MySQL 5.7-->
                 <property name="databasePlatform" value="org.hibernate.dialect.MySQL57Dialect"/>
                 <property name="database" value="MYSQL"/>
                 <property name="prepareConnection" value="true"/>
@@ -56,11 +58,13 @@
         <tx:attributes>
             <tx:method name="get*" read-only="true"/>
             <tx:method name="find*" read-only="true"/>
+            <tx:method name="save" timeout="-1" propagation="SUPPORTS"/>
             <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
     <aop:config>
-        <aop:pointcut id="daoPointCut" expression="execution(* com.soa.user.persistence.*.*(..))"/>
+        <aop:pointcut id="daoPointCut" expression="execution(* com.soa.trade.persistence.*.*(..))"/>
         <aop:advisor advice-ref="transactionAdvice" pointcut-ref="daoPointCut"/>
     </aop:config>
+
 </beans>

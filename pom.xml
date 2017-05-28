@@ -17,6 +17,8 @@
         <module>soa-order</module>
         <module>soa-user</module>
         <module>soa-product</module>
+        <module>soa-trade</module>
+        <module>soa-consumer-web</module>
 
     </modules>
     <properties>

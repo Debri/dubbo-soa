@@ -32,20 +32,19 @@ public class OrderRepositoryTest {
 
     @Test
     public void testFind() throws Exception {
-
-
+        System.out.println(orderRepository.find());
     }
 
     @Test
     public void testSave() {
         Order order = new Order();
+        order.setId(6L);
         order.setProductId(1L);
         order.setId(1L);
         order.setDeleted(1);
         order.setCreateTime(new Date());
         order.setUpdateTime(new Date());
         System.out.println(orderRepository.save(order));
-
     }
 
 }

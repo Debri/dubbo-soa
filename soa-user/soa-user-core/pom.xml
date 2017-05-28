@@ -12,7 +12,6 @@
     <artifactId>soa-user-core</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>soa-user-api</artifactId>
@@ -22,6 +21,13 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
+            <exclusions>
+                <!--将包含的spring的jar包排除，否则自动会引入spring 2.5.6导致与下面的版本冲突-->
+                <exclusion>
+                    <artifactId>spring</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--zookeeper-->
         <dependency>

@@ -3,7 +3,7 @@ package com.soa.order.facade;
 
 import com.soa.order.domain.Order;
 import com.soa.order.persistence.OrderRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * Created by Liuqi
  * Date: 2017/5/23.
  */
-@Service
+@Component(value = "orderFacade")
 public class OrderFacadeImpl implements OrderFacade {
     @Resource
     private OrderRepository orderRepository;

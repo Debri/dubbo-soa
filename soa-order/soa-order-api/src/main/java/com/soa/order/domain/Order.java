@@ -11,8 +11,8 @@ import java.util.Date;
  * Created by Liuqi
  * Date: 2017/5/23.
  */
-@Entity(name = "order")
-@Table(name = "order")
+@Entity(name = "orders")
+@Table(name = "orders")
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
