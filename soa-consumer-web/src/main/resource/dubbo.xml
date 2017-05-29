@@ -16,7 +16,7 @@
     <!-- 使用注解方式暴露接口 -->
     <!-- <dubbo:annotation package="com.geek.provider" /> -->
 
-    <dubbo:l
+    <!--<dubbo:l-->
 
     <!--consumers-->
     <dubbo:reference interface="com.soa.order.facade.OrderFacade" id="orderFacade"/>
