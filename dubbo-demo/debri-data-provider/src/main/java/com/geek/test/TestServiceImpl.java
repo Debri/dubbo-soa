@@ -1,4 +1,4 @@
-package com.geek.provider;
+package com.geek.test;
 
 import com.geek.api.TestService;
 

@@ -8,6 +8,6 @@
 
     <dubbo:service interface="com.geek.api.TestService" ref="testService" protocol="dubbo" timeout="100000"
                    retries="0"/>
-    <bean id="testService" class="com.geek.provider.TestServiceImpl"/>
+    <bean id="testService" class="com.geek.test.TestServiceImpl"/>
 
 </beans>

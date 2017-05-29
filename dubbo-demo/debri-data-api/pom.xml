@@ -12,6 +12,4 @@
     <packaging>jar</packaging>
     <description>定义服务的API</description>
     <artifactId>debri-data-api</artifactId>
-
-
 </project>
